@@ -20,5 +20,24 @@ body {
 }
 
 .country-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
   list-style: none;
+  padding-left: 5px;
+}
+
+.country-item {
+  display: flex;
+  align-items: center;
+}
+
+.country-name {
+  padding-left: 10px;
+  font-size: 20px;
+}
+
+.country-card--name {
+  font-size: 30px;
+  font-weight: bold;
 }
