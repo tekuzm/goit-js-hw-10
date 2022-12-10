@@ -17,7 +17,7 @@ refs.inputField.addEventListener(
 );
 
 function inputChangeHandler(event) {
-  const name = this.value;
+  const name = this.value.trim();
 
   // якщо поле інпут пусте, очищуй результати пошуку
   if (!name) {
@@ -31,10 +31,10 @@ function inputChangeHandler(event) {
 
       // якщо 1 країна у результатах пошуку, то створюй картку країни
       if (countriesArray.length < 2) {
-        createCountryCard();
+        createCountryCard(countriesArray);
       } else if (countriesArray.length >= 2 && countriesArray.length <= 10) {
         // якщо від 2 до 10 країн у результатах пошуку, то показуй список країн
-        createCountryList();
+        createCountryList(countriesArray);
       } else {
         return Notiflix.Notify.info(
           'Too many matches found. Please enter a more specific name.'
