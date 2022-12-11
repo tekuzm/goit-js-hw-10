@@ -20,5 +20,3 @@ export default function fetchCountries(name, options) {
       return data;
     });
 }
-
-// якщо 1 країна у результатах пошуку, то до url + ?fields=name,capital,population,flags,languages
