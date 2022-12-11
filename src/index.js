@@ -1,7 +1,7 @@
 import './css/styles.css';
 import debounce from 'lodash.debounce';
 import Notiflix from 'notiflix';
-import fetchCountries from './fetchCountries';
+import fetchCountries from './js/fetchCountries';
 
 const DEBOUNCE_DELAY = 300;
 
@@ -16,8 +16,8 @@ refs.inputField.addEventListener(
   debounce(inputChangeHandler, DEBOUNCE_DELAY)
 );
 
-function inputChangeHandler(event) {
-  const name = this.value.trim();
+function inputChangeHandler() {
+  const name = refs.inputField.value.trim();
 
   // якщо поле інпут пусте, очищуй результати пошуку
   if (!name) {
@@ -36,6 +36,7 @@ function inputChangeHandler(event) {
         // якщо від 2 до 10 країн у результатах пошуку, то показуй список країн
         createCountryList(countriesArray);
       } else {
+        // якщо більше 10 країн у результатах пошуку, показуй alert
         return Notiflix.Notify.info(
           'Too many matches found. Please enter a more specific name.'
         );
@@ -54,7 +55,18 @@ function clearCountryList() {
 
 function createCountryCard(countryObj) {
   const country = countryObj[0];
-  refs.countryInfo.innerHTML = `<div class="country-card"><div class="country-header"><img src="${country.flags.svg}" class="flag-img" alt="Flag" width=55 height=35><h2 class="country-card--name">${country.name.official}</h2></div><p class="country-description">Capital: <span class="country-description--value">${country.capital}</span></p><p class="country-description">Population: <span class="country-description--value">${country.population}</span></p><p class="country-description">Languages: <span class="country-description--value">${country.languages}</span></p></div>`;
+  const countryDescription = `<div class="country-card"><div class="country-header"><img src="${
+    country.flags.svg
+  }" class="flag-img" alt="Flag" width=55 height=35><h2 class="country-card--name">${
+    country.name.official
+  }</h2></div><p class="country-description">Capital: <span class="country-description--value">${
+    country.capital
+  }</span></p><p class="country-description">Population: <span class="country-description--value">${
+    country.population
+  }</span></p><p class="country-description">Languages: <span class="country-description--value">${Object.values(
+    country.languages
+  ).join(', ')}</span></p></div>`;
+  refs.countryInfo.innerHTML = countryDescription;
 }
 
 function createCountryList(countriesArray) {
