@@ -21,13 +21,13 @@ function inputChangeHandler() {
 
   // якщо поле інпут пусте, очищуй результати пошуку
   if (!name) {
-    clearCountryList();
+    clearResults();
     return;
   }
 
   fetchCountries(name)
     .then(countriesArray => {
-      clearCountryList();
+      clearResults();
 
       // якщо 1 країна у результатах пошуку, то створюй картку країни
       if (countriesArray.length < 2) {
@@ -49,8 +49,9 @@ function inputChangeHandler() {
     });
 }
 
-function clearCountryList() {
+function clearResults() {
   refs.countryList.innerHTML = '';
+  refs.countryInfo.innerHTML = '';
 }
 
 function createCountryCard(countryObj) {
