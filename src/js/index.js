@@ -1,7 +1,7 @@
-import './css/styles.css';
+import '../css/styles.css';
 import debounce from 'lodash.debounce';
 import Notiflix from 'notiflix';
-import fetchCountries from './js/fetchCountries';
+import fetchCountries from './fetchCountries';
 
 const DEBOUNCE_DELAY = 300;
 
@@ -19,7 +19,7 @@ refs.inputField.addEventListener(
 function inputChangeHandler() {
   const name = refs.inputField.value.trim();
 
-  // якщо поле інпут пусте, очищуй результати пошуку
+  // if input fiels is empty, clear search results
   if (!name) {
     clearResults();
     return;
@@ -29,15 +29,15 @@ function inputChangeHandler() {
     .then(countriesArray => {
       clearResults();
 
-      // якщо 1 країна у результатах пошуку, то створюй картку країни
+      // if search result is 1 country, create country card
       if (countriesArray.length < 2) {
         clearResults();
-        createCountryCard(countriesArray);
-      } else if (countriesArray.length >= 2 && countriesArray.length <= 10) {
-        // якщо від 2 до 10 країн у результатах пошуку, то показуй список країн
+        createCountryCard(countriesArray[0]);
+      } // if search result contains 2-10 countries, create list of countries
+      else if (countriesArray.length >= 2 && countriesArray.length <= 10) {
         createCountryList(countriesArray);
-      } else {
-        // якщо більше 10 країн у результатах пошуку, показуй alert
+      } // if search result contains >10 countries, show alert "Too many matches found. Please enter a more specific name."
+      else {
         return Notiflix.Notify.info(
           'Too many matches found. Please enter a more specific name.'
         );
@@ -55,8 +55,7 @@ function clearResults() {
   refs.countryInfo.innerHTML = '';
 }
 
-function createCountryCard(countryObj) {
-  const country = countryObj[0];
+function createCountryCard(country) {
   const countryDescription = `<div class="country-card"><div class="country-header"><img src="${
     country.flags.svg
   }" class="flag-img" alt="Flag" width=55 height=35><h2 class="country-card--name">${

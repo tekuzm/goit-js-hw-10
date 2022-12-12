@@ -1,11 +1,5 @@
-export default function fetchCountries(name, options) {
-  options = ['name', 'capital', 'population', 'flags', 'languages'];
-
-  let url = `https://restcountries.com/v3.1/name/${name}`;
-
-  if (options && options.length) {
-    url += `?fields=name,capital,population,flags,languages`;
-  }
+export default function fetchCountries(name) {
+  let url = `https://restcountries.com/v3.1/name/${name}?fields=name,capital,population,flags,languages`;
 
   console.log(url);
 
