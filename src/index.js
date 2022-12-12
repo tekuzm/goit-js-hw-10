@@ -31,6 +31,7 @@ function inputChangeHandler() {
 
       // якщо 1 країна у результатах пошуку, то створюй картку країни
       if (countriesArray.length < 2) {
+        clearResults();
         createCountryCard(countriesArray);
       } else if (countriesArray.length >= 2 && countriesArray.length <= 10) {
         // якщо від 2 до 10 країн у результатах пошуку, то показуй список країн
@@ -71,8 +72,14 @@ function createCountryCard(countryObj) {
 }
 
 function createCountryList(countriesArray) {
-  const listItemEl = countriesArray.forEach(country => {
-    `<li class="country-item"><img src="${country.flags.svg}" alt="Flag" width="30", height="20"><span class="country-name">${country.name.official}</span></li>`;
-    refs.countryList.innerHTML = listItemEl;
-  });
+  const listItemEl = countriesArray
+    ?.map(country => {
+      return `<li class="country-item">
+      <img src="${country.flags.svg}" alt="Flag" width="30" height="20" />
+      <span class="country-name">${country.name.official}</span>
+    </li>`;
+    })
+    .join('');
+
+  refs.countryList.innerHTML = listItemEl;
 }
